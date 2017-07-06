@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">UserFeedBack</string>
+    <string name="str_register">Register</string>
+    <string name="str_forgot_password">Forgot Password ?</string>
+    <string name="str_username">Username</string>
+    <string name="str_password">Password</string>
 </resources>
