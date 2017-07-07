@@ -5,6 +5,8 @@
     android:background="@android:color/black"
     android:orientation="vertical">
 
+    <include layout="@layout/activity_toolbar" />
+
     <ListView
         android:id="@+id/input_survey_overview"
         android:layout_width="match_parent"
