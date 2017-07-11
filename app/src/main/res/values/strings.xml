@@ -13,4 +13,7 @@
     <string name="filter">Filter</string>
     <string name="surveyOverview">Survey Overview</string>
     <string name="filteryoursearch">Filter Your Search</string>
+    <string name="categoryList">Category List</string>
+    <string name="comment">Comments</string>
+    <string name="add">Add</string>
 </resources>
