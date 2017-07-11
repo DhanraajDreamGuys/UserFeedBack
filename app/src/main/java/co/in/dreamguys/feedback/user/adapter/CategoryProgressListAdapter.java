@@ -1,6 +1,8 @@
 package co.in.dreamguys.feedback.user.adapter;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.json.JSONArray;
+import java.util.List;
 
 import co.in.dreamguys.feedback.user.R;
+import co.in.dreamguys.feedback.user.model.DAOCategory;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -18,15 +21,15 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  * Created by user5 on 06-07-2017.
  */
 
-public class Adapter_survey_description extends BaseAdapter {
+public class CategoryProgressListAdapter extends BaseAdapter {
 
 
     Context mContext;
-    private final JSONArray survey;
+    private List<DAOCategory> survey;
     LayoutInflater layoutInflater;
 
 
-    public Adapter_survey_description(Context mContext, JSONArray survey) {
+    public CategoryProgressListAdapter(Context mContext, List<DAOCategory> survey) {
         this.mContext = mContext;
         this.survey = survey;
         layoutInflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -34,12 +37,12 @@ public class Adapter_survey_description extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return survey.length();
+        return survey.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public DAOCategory getItem(int position) {
+        return survey.get(position);
     }
 
     @Override
@@ -47,6 +50,7 @@ public class Adapter_survey_description extends BaseAdapter {
         return position;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder mHolder;
@@ -60,12 +64,18 @@ public class Adapter_survey_description extends BaseAdapter {
             mHolder = (ViewHolder) convertView.getTag();
         }
 
-        mHolder.inputProgress.setProgress(10);
+        DAOCategory data = getItem(position);
+        mHolder.inputCategory.setText(data.getCategoryName());
+        mHolder.inputProgress.setProgress(Integer.parseInt(data.getIntPercentageValue()));
+
+
+//        int colorValue = Color.parseColor(data.getIntColorValue());
+//        mHolder.inputProgress.setBackgroundColor(colorValue);
         return convertView;
     }
 
 
-    class ViewHolder {
+    private class ViewHolder {
         TextView inputCategory;
         ProgressBar inputProgress;
 
