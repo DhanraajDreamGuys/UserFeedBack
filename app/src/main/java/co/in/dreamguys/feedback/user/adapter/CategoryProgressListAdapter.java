@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import co.in.dreamguys.feedback.user.R;
-import co.in.dreamguys.feedback.user.model.DAOCategory;
+import co.in.dreamguys.feedback.user.response.CategoryListResponse;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -25,11 +25,11 @@ public class CategoryProgressListAdapter extends BaseAdapter {
 
 
     Context mContext;
-    private List<DAOCategory> survey;
+    private List<CategoryListResponse.Datum> survey;
     LayoutInflater layoutInflater;
 
 
-    public CategoryProgressListAdapter(Context mContext, List<DAOCategory> survey) {
+    public CategoryProgressListAdapter(Context mContext, List<CategoryListResponse.Datum> survey) {
         this.mContext = mContext;
         this.survey = survey;
         layoutInflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -41,7 +41,7 @@ public class CategoryProgressListAdapter extends BaseAdapter {
     }
 
     @Override
-    public DAOCategory getItem(int position) {
+    public Object getItem(int position) {
         return survey.get(position);
     }
 
@@ -64,9 +64,10 @@ public class CategoryProgressListAdapter extends BaseAdapter {
             mHolder = (ViewHolder) convertView.getTag();
         }
 
-        DAOCategory data = getItem(position);
-        mHolder.inputCategory.setText(data.getCategoryName());
-        mHolder.inputProgress.setProgress(Integer.parseInt(data.getIntPercentageValue()));
+        CategoryListResponse.Datum data = (CategoryListResponse.Datum) getItem(position);
+        mHolder.inputCategory.setText(data.getAnswer());
+        mHolder.inputProgress.setProgress(Double.valueOf(data.getPercentage()).intValue());
+      /*  mHolder.inputProgress.setProgress(percent);*/
 
 
 //        int colorValue = Color.parseColor(data.getIntColorValue());
