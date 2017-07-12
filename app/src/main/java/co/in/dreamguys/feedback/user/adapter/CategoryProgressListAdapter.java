@@ -1,6 +1,7 @@
 package co.in.dreamguys.feedback.user.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
@@ -12,7 +13,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import co.in.dreamguys.feedback.user.CategoryViewList;
 import co.in.dreamguys.feedback.user.R;
+import co.in.dreamguys.feedback.user.helper.Constants;
+import co.in.dreamguys.feedback.user.helper.SessionHandler;
 import co.in.dreamguys.feedback.user.response.CategoryListResponse;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -59,25 +63,33 @@ public class CategoryProgressListAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.adapter_survey_description, null);
             mHolder.inputCategory = (TextView) convertView.findViewById(R.id.input_category);
             mHolder.inputProgress = (ProgressBar) convertView.findViewById(R.id.progressBar);
+            mHolder.inputPercentage = (TextView) convertView.findViewById(R.id.input_percentage);
             convertView.setTag(mHolder);
         } else {
             mHolder = (ViewHolder) convertView.getTag();
         }
 
-        CategoryListResponse.Datum data = (CategoryListResponse.Datum) getItem(position);
+        final CategoryListResponse.Datum data = (CategoryListResponse.Datum) getItem(position);
+        int progress = (int) Math.round(Double.valueOf(data.getPercentage()));
         mHolder.inputCategory.setText(data.getAnswer());
-        mHolder.inputProgress.setProgress(Double.valueOf(data.getPercentage()).intValue());
-      /*  mHolder.inputProgress.setProgress(percent);*/
+        mHolder.inputProgress.setProgress(progress);
+        mHolder.inputPercentage.setText(String.valueOf(progress) + "%");
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewCategory = new Intent(mContext, CategoryViewList.class);
+                SessionHandler.getInstance().save(mContext, Constants.CATEGORYNAME, data.getAnswer());
+                mContext.startActivity(viewCategory);
+            }
+        });
 
-//        int colorValue = Color.parseColor(data.getIntColorValue());
-//        mHolder.inputProgress.setBackgroundColor(colorValue);
         return convertView;
     }
 
 
     private class ViewHolder {
-        TextView inputCategory;
+        TextView inputCategory, inputPercentage;
         ProgressBar inputProgress;
 
     }

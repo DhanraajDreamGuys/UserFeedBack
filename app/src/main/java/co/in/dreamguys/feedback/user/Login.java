@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import co.in.dreamguys.feedback.user.helper.Constants;
 import co.in.dreamguys.feedback.user.helper.CustomProgressDialog;
+import co.in.dreamguys.feedback.user.helper.SessionHandler;
 import co.in.dreamguys.feedback.user.helper.Utils;
 import co.in.dreamguys.feedback.user.network.LoginAPI;
 import co.in.dreamguys.feedback.user.response.LoginResponse;
@@ -70,6 +72,7 @@ public class Login extends AppCompatActivity {
                 public void success(LoginResponse.OwnerLoginResponse ownerLoginResponse, Response response) {
                     if (ownerLoginResponse.getStatus().equalsIgnoreCase("Y")) {
                         startActivity(new Intent(Login.this, CategoryProgressList.class));
+                        SessionHandler.getInstance().save(Login.this, Constants.RESTAURANT_ID, ownerLoginResponse.getData().get(0).getRest_id());
                         finish();
                     } else {
                         Snackbar.make(view, ownerLoginResponse.getMessage(), Snackbar.LENGTH_SHORT).show();
@@ -84,11 +87,5 @@ public class Login extends AppCompatActivity {
                 }
             });
         }
-
-
-    }
-
-    public void forgotPassword(View view) {
-
     }
 }

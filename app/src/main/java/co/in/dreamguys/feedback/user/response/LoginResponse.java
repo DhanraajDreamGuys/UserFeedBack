@@ -19,7 +19,7 @@ public class LoginResponse {
         @SerializedName("username")
         @Expose
         private String username;
-        @SerializedName("rest_id")
+        @SerializedName("restaurantId")
         @Expose
         private String rest_id;
         @SerializedName("name")
