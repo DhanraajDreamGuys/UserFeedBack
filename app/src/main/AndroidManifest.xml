@@ -23,8 +23,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".CategoryProgressList"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".CategoryProgressList"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".CategoryViewList"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddNote"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

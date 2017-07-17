@@ -1,6 +1,6 @@
 package co.in.dreamguys.feedback.user.network;
 
-import co.in.dreamguys.feedback.user.response.CategoryListChartResponse;
+import co.in.dreamguys.feedback.user.response.SurveyListChartResponse;
 import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -20,15 +20,15 @@ public class CategoryChartListAPI {
     private CategoryChartListAPI() {
     }
 
-    public void Callresponse(String restaurantId, String color, Callback<CategoryListChartResponse.UserListChartResponse> mCallback) {
+    public void Callresponse(String restaurantId, String color, Callback<SurveyListChartResponse.UserSurveyListChartResponse> mCallback) {
         ReviewDetails mGitapi = ApiCallBaseConfiguration.getInstance().getApiBuilder().create(ReviewDetails.class);
         mGitapi.mVendor(restaurantId, color, mCallback);
     }
 
     public interface ReviewDetails {
         @FormUrlEncoded
-        @POST("/lineChart")
+        @POST("/getSurveychart")
         public void mVendor(@Field("restaurantId") String restaurantId, @Field("color") String color,
-                            Callback<CategoryListChartResponse.UserListChartResponse> response);
+                            Callback<SurveyListChartResponse.UserSurveyListChartResponse> response);
     }
 }

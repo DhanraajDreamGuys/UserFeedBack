@@ -17,7 +17,7 @@ import co.in.dreamguys.feedback.user.CategoryViewList;
 import co.in.dreamguys.feedback.user.R;
 import co.in.dreamguys.feedback.user.helper.Constants;
 import co.in.dreamguys.feedback.user.helper.SessionHandler;
-import co.in.dreamguys.feedback.user.response.CategoryListResponse;
+import co.in.dreamguys.feedback.user.response.SurveyListResponse;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -29,11 +29,11 @@ public class CategoryProgressListAdapter extends BaseAdapter {
 
 
     Context mContext;
-    private List<CategoryListResponse.Datum> survey;
+    private List<SurveyListResponse.Datum> survey;
     LayoutInflater layoutInflater;
 
 
-    public CategoryProgressListAdapter(Context mContext, List<CategoryListResponse.Datum> survey) {
+    public CategoryProgressListAdapter(Context mContext, List<SurveyListResponse.Datum> survey) {
         this.mContext = mContext;
         this.survey = survey;
         layoutInflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -69,7 +69,7 @@ public class CategoryProgressListAdapter extends BaseAdapter {
             mHolder = (ViewHolder) convertView.getTag();
         }
 
-        final CategoryListResponse.Datum data = (CategoryListResponse.Datum) getItem(position);
+        final SurveyListResponse.Datum data = (SurveyListResponse.Datum) getItem(position);
         int progress = (int) Math.round(Double.valueOf(data.getPercentage()));
         mHolder.inputCategory.setText(data.getAnswer());
         mHolder.inputProgress.setProgress(progress);

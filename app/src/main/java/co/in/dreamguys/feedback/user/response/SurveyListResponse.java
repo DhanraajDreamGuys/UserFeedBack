@@ -6,49 +6,50 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by user5 on 12-07-2017.
+ * Created by user5 on 11-07-2017.
  */
 
-public class CategoryListChartResponse {
+public class SurveyListResponse {
+
+
     public class Datum {
 
-        @SerializedName("notes_date")
+        @SerializedName("answer")
         @Expose
-        private String notes_date;
+        private String answer;
         @SerializedName("count")
         @Expose
-        private String count;
-        @SerializedName("notes")
+        private Integer count;
+        @SerializedName("percentage")
         @Expose
-        private String notes;
+        private String percentage;
 
-        public String getNotes_date() {
-            return notes_date;
+        public String getAnswer() {
+            return answer;
         }
 
-        public void setNotes_date(String notes_date) {
-            this.notes_date = notes_date;
+        public void setAnswer(String answer) {
+            this.answer = answer;
         }
 
-        public String getCount() {
+        public Integer getCount() {
             return count;
         }
 
-        public void setCount(String count) {
+        public void setCount(Integer count) {
             this.count = count;
         }
 
-        public String getNotes() {
-            return notes;
+        public String getPercentage() {
+            return percentage;
         }
 
-        public void setNotes(String notes) {
-            this.notes = notes;
+        public void setPercentage(String percentage) {
+            this.percentage = percentage;
         }
-
     }
 
-    public class UserListChartResponse {
+    public class UserSurveyListResponse {
 
         @SerializedName("status")
         @Expose

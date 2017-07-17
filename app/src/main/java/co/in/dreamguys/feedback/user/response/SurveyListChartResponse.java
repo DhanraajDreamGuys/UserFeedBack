@@ -6,40 +6,49 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by user5 on 11-07-2017.
+ * Created by user5 on 12-07-2017.
  */
 
-public class CategoryListResponse {
-
-
+public class SurveyListChartResponse {
     public class Datum {
 
-        @SerializedName("category_id")
+        @SerializedName("notes_date")
         @Expose
-        private String category_id;
-        @SerializedName("category_name")
+        private String notes_date;
+        @SerializedName("count")
         @Expose
-        private String category_name;
+        private String count;
+        @SerializedName("notes")
+        @Expose
+        private String notes;
 
-        public String getCategory_id() {
-            return category_id;
+        public String getNotes_date() {
+            return notes_date;
         }
 
-        public void setCategory_id(String notes_id) {
-            this.category_id = notes_id;
+        public void setNotes_date(String notes_date) {
+            this.notes_date = notes_date;
         }
 
-        public String getCategory_name() {
-            return category_name;
+        public String getCount() {
+            return count;
         }
 
-        public void setCategory_name(String category_name) {
-            this.category_name = category_name;
+        public void setCount(String count) {
+            this.count = count;
+        }
+
+        public String getNotes() {
+            return notes;
+        }
+
+        public void setNotes(String notes) {
+            this.notes = notes;
         }
 
     }
 
-    public class UserCategoryListResponse {
+    public class UserSurveyListChartResponse {
 
         @SerializedName("status")
         @Expose
