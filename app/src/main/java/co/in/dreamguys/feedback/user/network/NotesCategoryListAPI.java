@@ -8,14 +8,14 @@ import retrofit.http.GET;
  * Created by Dhanraaj on 6/15/2017.
  */
 
-public class CategoryListAPI {
-    private static final CategoryListAPI ourInstance = new CategoryListAPI();
+public class NotesCategoryListAPI {
+    private static final NotesCategoryListAPI ourInstance = new NotesCategoryListAPI();
 
-    public static CategoryListAPI getInstance() {
+    public static NotesCategoryListAPI getInstance() {
         return ourInstance;
     }
 
-    private CategoryListAPI() {
+    private NotesCategoryListAPI() {
     }
 
     public void Callresponse(Callback<NotesCategoryListResponse.UserNotesCategoryListResponse> mCallback) {
@@ -24,7 +24,7 @@ public class CategoryListAPI {
     }
 
     public interface ReviewDetails {
-        @GET("/categorylist")
+        @GET("/notesCategorylist")
         public void mVendor(Callback<NotesCategoryListResponse.UserNotesCategoryListResponse> response);
     }
 }

@@ -10,7 +10,7 @@
     <string name="skintone">Skin Tone</string>
     <string name="age">Age</string>
     <string name="date">Date</string>
-    <string name="filter">Filter</string>
+    <string name="filter">Apply</string>
     <string name="surveyOverview">Survey Overview</string>
     <string name="filteryoursearch">Filter Your Search</string>
     <string name="categoryList">Category List</string>
@@ -20,4 +20,5 @@
     <string name="err_username">Enter username</string>
     <string name="err_password">Enter password</string>
     <string name="please_wait">Please wait</string>
+    <string name="reset">Reset</string>
 </resources>

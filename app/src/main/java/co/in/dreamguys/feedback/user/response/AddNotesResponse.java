@@ -6,40 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by user5 on 11-07-2017.
+ * Created by user5 on 18-07-2017.
  */
 
-public class CategoryListResponse {
-
-
-    public class Datum {
-
-        @SerializedName("category_id")
-        @Expose
-        private String category_id;
-        @SerializedName("category_name")
-        @Expose
-        private String category_name;
-
-        public String getCategory_id() {
-            return category_id;
-        }
-
-        public void setCategory_id(String notes_id) {
-            this.category_id = notes_id;
-        }
-
-        public String getCategory_name() {
-            return category_name;
-        }
-
-        public void setCategory_name(String category_name) {
-            this.category_name = category_name;
-        }
-
-    }
-
-    public class UserCategoryListResponse {
+public class AddNotesResponse {
+    public class UserAddNotesResponse {
 
         @SerializedName("status")
         @Expose
@@ -52,7 +23,7 @@ public class CategoryListResponse {
         private String message;
         @SerializedName("data")
         @Expose
-        private List<Datum> data = null;
+        private List<Object> data = null;
 
         public String getStatus() {
             return status;
@@ -78,14 +49,13 @@ public class CategoryListResponse {
             this.message = message;
         }
 
-        public List<Datum> getData() {
+        public List<Object> getData() {
             return data;
         }
 
-        public void setData(List<Datum> data) {
+        public void setData(List<Object> data) {
             this.data = data;
         }
 
     }
-
 }

@@ -39,6 +39,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mCustomProgressDialog = new CustomProgressDialog(this);
+        Constants.ArrayFilter.clear();
         initWidgets();
 
 
@@ -71,7 +72,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void success(LoginResponse.OwnerLoginResponse ownerLoginResponse, Response response) {
                     if (ownerLoginResponse.getStatus().equalsIgnoreCase("Y")) {
-                        startActivity(new Intent(Login.this, CategoryProgressList.class));
+                        startActivity(new Intent(Login.this, MainActivity.class));
                         SessionHandler.getInstance().save(Login.this, Constants.RESTAURANT_ID, ownerLoginResponse.getData().get(0).getRest_id());
                         finish();
                     } else {

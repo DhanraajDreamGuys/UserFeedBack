@@ -56,11 +56,13 @@
             android:background="@drawable/textview_background_stroke"
             android:drawablePadding="@dimen/_2sdp"
             android:drawableRight="@drawable/ic_dropdown"
-            android:padding="@dimen/_5sdp" />
+            android:gravity="center|left"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp" />
 
 
         <TextView
-            android:id="@+id/input_date"
+            android:id="@+id/input_Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_5sdp"
@@ -70,7 +72,9 @@
             android:background="@drawable/textview_background_stroke"
             android:drawablePadding="@dimen/_2sdp"
             android:drawableRight="@drawable/ic_calendar"
-            android:padding="@dimen/_5sdp" />
+            android:gravity="center|left"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp" />
 
     </LinearLayout>
 
@@ -94,11 +98,13 @@
         android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_3sdp"
         android:background="@drawable/textview_background_stroke"
+        android:gravity="top"
         android:minLines="5"
         android:padding="@dimen/_3sdp" />
 
 
     <Button
+        android:id="@+id/input_Btn_Add"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_35sdp"
         android:layout_gravity="center"

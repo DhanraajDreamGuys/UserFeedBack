@@ -6,50 +6,40 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by user5 on 11-07-2017.
+ * Created by user5 on 18-07-2017.
  */
 
-public class SurveyListResponse {
+public class SkinToneResponse {
 
 
     public class Datum {
 
-        @SerializedName("answer")
+        @SerializedName("id")
         @Expose
-        private String answer;
-        @SerializedName("count")
+        private Integer id;
+        @SerializedName("skin_tone")
         @Expose
-        private Integer count;
-        @SerializedName("percentage")
-        @Expose
-        private String percentage;
+        private String skin_tone;
 
-        public String getAnswer() {
-            return answer;
+        public Integer getId() {
+            return id;
         }
 
-        public void setAnswer(String answer) {
-            this.answer = answer;
+        public void setId(Integer id) {
+            this.id = id;
         }
 
-        public Integer getCount() {
-            return count;
+        public String getSkin_tone() {
+            return skin_tone;
         }
 
-        public void setCount(Integer count) {
-            this.count = count;
+        public void setSkin_tone(String skin_tone) {
+            this.skin_tone = skin_tone;
         }
 
-        public String getPercentage() {
-            return percentage;
-        }
-
-        public void setPercentage(String percentage) {
-            this.percentage = percentage;
-        }
     }
 
-    public class UserSurveyListResponse {
+    public class UserSkinToneResponse {
 
         @SerializedName("status")
         @Expose
@@ -96,7 +86,5 @@ public class SurveyListResponse {
             this.data = data;
         }
 
-
     }
-
 }

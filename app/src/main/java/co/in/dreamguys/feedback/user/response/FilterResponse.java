@@ -6,11 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by user5 on 11-07-2017.
+ * Created by user5 on 18-07-2017.
  */
 
-public class SurveyListResponse {
-
+public class FilterResponse {
 
     public class Datum {
 
@@ -47,9 +46,10 @@ public class SurveyListResponse {
         public void setPercentage(String percentage) {
             this.percentage = percentage;
         }
+
     }
 
-    public class UserSurveyListResponse {
+    public class UserFilterResponse {
 
         @SerializedName("status")
         @Expose
@@ -95,7 +95,6 @@ public class SurveyListResponse {
         public void setData(List<Datum> data) {
             this.data = data;
         }
-
 
     }
 

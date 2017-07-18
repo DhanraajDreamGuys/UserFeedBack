@@ -24,15 +24,15 @@
         </activity>
 
         <activity
+            android:name=".FilterList"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".CategoryProgressList"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".CategoryViewList"
+            android:name=".ViewFeedbackList"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddNote"

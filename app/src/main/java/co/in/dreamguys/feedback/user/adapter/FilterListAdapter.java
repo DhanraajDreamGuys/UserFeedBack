@@ -3,8 +3,6 @@ package co.in.dreamguys.feedback.user.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,36 +16,33 @@ import co.in.dreamguys.feedback.user.R;
 import co.in.dreamguys.feedback.user.ViewFeedbackList;
 import co.in.dreamguys.feedback.user.helper.Constants;
 import co.in.dreamguys.feedback.user.helper.SessionHandler;
-import co.in.dreamguys.feedback.user.response.SurveyListResponse;
+import co.in.dreamguys.feedback.user.response.FilterResponse;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
- * Created by user5 on 06-07-2017.
+ * Created by user5 on 18-07-2017.
  */
 
-public class CategoryProgressListAdapter extends BaseAdapter {
-
-
+public class FilterListAdapter extends BaseAdapter {
     Context mContext;
-    private List<SurveyListResponse.Datum> survey;
+    private List<FilterResponse.Datum> Filter;
     LayoutInflater layoutInflater;
 
-
-    public CategoryProgressListAdapter(Context mContext, List<SurveyListResponse.Datum> survey) {
+    public FilterListAdapter(Context mContext, List<FilterResponse.Datum> Filter) {
         this.mContext = mContext;
-        this.survey = survey;
+        this.Filter = Filter;
         layoutInflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return survey.size();
+        return Filter.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return survey.get(position);
+        return Filter.get(position);
     }
 
     @Override
@@ -55,7 +50,6 @@ public class CategoryProgressListAdapter extends BaseAdapter {
         return position;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder mHolder;
@@ -70,7 +64,7 @@ public class CategoryProgressListAdapter extends BaseAdapter {
             mHolder = (ViewHolder) convertView.getTag();
         }
 
-        final SurveyListResponse.Datum data = (SurveyListResponse.Datum) getItem(position);
+        final FilterResponse.Datum data = (FilterResponse.Datum) getItem(position);
         int progress = (int) Math.round(Double.valueOf(data.getPercentage()));
         mHolder.inputCategory.setText(data.getAnswer());
         mHolder.inputProgress.setProgress(progress);
@@ -85,15 +79,12 @@ public class CategoryProgressListAdapter extends BaseAdapter {
                 ((Activity) mContext).finish();
             }
         });
-
         return convertView;
     }
-
 
     private class ViewHolder {
         TextView inputCategory, inputPercentage;
         ProgressBar inputProgress;
 
     }
-
 }

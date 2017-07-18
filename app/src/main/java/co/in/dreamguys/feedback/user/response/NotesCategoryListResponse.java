@@ -9,47 +9,58 @@ import java.util.List;
  * Created by user5 on 11-07-2017.
  */
 
-public class SurveyListResponse {
-
+public class NotesCategoryListResponse {
 
     public class Datum {
 
-        @SerializedName("answer")
+        @SerializedName("id")
         @Expose
-        private String answer;
-        @SerializedName("count")
+        private String id;
+        @SerializedName("category_name")
         @Expose
-        private Integer count;
-        @SerializedName("percentage")
+        private String category_name;
+        @SerializedName("created_date")
         @Expose
-        private String percentage;
+        private String created_date;
+        @SerializedName("delete_flag")
+        @Expose
+        private String delete_flag;
 
-        public String getAnswer() {
-            return answer;
+        public String getId() {
+            return id;
         }
 
-        public void setAnswer(String answer) {
-            this.answer = answer;
+        public void setId(String id) {
+            this.id = id;
         }
 
-        public Integer getCount() {
-            return count;
+        public String getCategory_name() {
+            return category_name;
         }
 
-        public void setCount(Integer count) {
-            this.count = count;
+        public void setCategory_name(String category_name) {
+            this.category_name = category_name;
         }
 
-        public String getPercentage() {
-            return percentage;
+        public String getCreated_date() {
+            return created_date;
         }
 
-        public void setPercentage(String percentage) {
-            this.percentage = percentage;
+        public void setCreated_date(String created_date) {
+            this.created_date = created_date;
         }
+
+        public String getDelete_flag() {
+            return delete_flag;
+        }
+
+        public void setDelete_flag(String delete_flag) {
+            this.delete_flag = delete_flag;
+        }
+
     }
 
-    public class UserSurveyListResponse {
+    public class UserNotesCategoryListResponse {
 
         @SerializedName("status")
         @Expose
@@ -95,7 +106,6 @@ public class SurveyListResponse {
         public void setData(List<Datum> data) {
             this.data = data;
         }
-
 
     }
 

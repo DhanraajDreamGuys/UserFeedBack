@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -37,7 +38,7 @@ import retrofit.client.Response;
  * Created by user5 on 12-07-2017.
  */
 
-public class CategoryViewList extends AppCompatActivity implements View.OnClickListener {
+public class ViewFeedbackList extends AppCompatActivity implements View.OnClickListener {
 
     private LineChart lineChart;
     ListView NotesList;
@@ -58,15 +59,40 @@ public class CategoryViewList extends AppCompatActivity implements View.OnClickL
         lineChart = (LineChart) findViewById(R.id.linechart);
         NotesList = (ListView) findViewById(R.id.input_notes);
         inputAdd = (ImageView) findViewById(R.id.input_add);
-        mProgressDialog = new ProgressDialog(CategoryViewList.this);
+        mProgressDialog = new ProgressDialog(ViewFeedbackList.this);
         mProgressDialog.setMessage("Loading...Please wait...");
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressDialog.setCancelable(false);
         inputAdd.setVisibility(View.VISIBLE);
 
-        CategoryChartListAPI.getInstance().Callresponse(SessionHandler.getInstance().get(CategoryViewList.this, Constants.RESTAURANT_ID),
-                SessionHandler.getInstance().get(CategoryViewList.this, Constants.CATEGORYNAME), new Callback<SurveyListChartResponse.UserSurveyListChartResponse>() {
+
+        NotesViewListAPI.getInstance().Callresponse(new Callback<NotesViewListResponse.UserNotesViewListResponse>() {
+            @Override
+            public void success(NotesViewListResponse.UserNotesViewListResponse userNotesViewListResponse, Response response) {
+                if (userNotesViewListResponse.getStatus().equalsIgnoreCase("Y")) {
+                    if (userNotesViewListResponse.getData() == null) {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(ViewFeedbackList.this, "No data", Toast.LENGTH_SHORT).show();
+                    } else {
+                        mProgressDialog.dismiss();
+                        arrayNotesList = userNotesViewListResponse.getData();
+                        aCategoryViewListAdapter = new NotesViewListAdapter(ViewFeedbackList.this, arrayNotesList);
+                        NotesList.setAdapter(aCategoryViewListAdapter);
+                        aCategoryViewListAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.i("TAG", "Error");
+            }
+        });
+
+        CategoryChartListAPI.getInstance().Callresponse(SessionHandler.getInstance().get(ViewFeedbackList.this, Constants.RESTAURANT_ID),
+                SessionHandler.getInstance().get(ViewFeedbackList.this, Constants.CATEGORYNAME), new Callback<SurveyListChartResponse.UserSurveyListChartResponse>() {
                     @Override
                     public void success(SurveyListChartResponse.UserSurveyListChartResponse userListChartResponse, Response response) {
                         mProgressDialog.show();
@@ -94,10 +120,11 @@ public class CategoryViewList extends AppCompatActivity implements View.OnClickL
                         lineChart.getAxisLeft().setEnabled(false);
 /*                        lineChart.setVisibleXRange(100,200);*/
                         XAxis xAxis = lineChart.getXAxis();
+                        xAxis.setTextSize(10f);
                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                         xAxis.setSpaceBetweenLabels(10);
                         xAxis.setTextColor(Color.WHITE);
-
+                        mProgressDialog.dismiss();
                         Legend l = lineChart.getLegend();
                         l.setForm(Legend.LegendForm.LINE);
                         l.setFormSize(10f);
@@ -105,14 +132,15 @@ public class CategoryViewList extends AppCompatActivity implements View.OnClickL
                         l.setMaxSizePercent(0.95f);
                         l.setYEntrySpace(40f);
 
-                        notesList();
+
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Toast.makeText(CategoryViewList.this, "No data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ViewFeedbackList.this, "No data", Toast.LENGTH_SHORT).show();
                     }
                 });
+
         inputAdd.setOnClickListener(this);
         /*lineChart.setOnChartGestureListener(this);
         lineChart.setOnChartValueSelectedListener(this);*/
@@ -121,23 +149,7 @@ public class CategoryViewList extends AppCompatActivity implements View.OnClickL
 
 
     public void notesList() {
-        NotesViewListAPI.getInstance().Callresponse(new Callback<NotesViewListResponse.UserNotesViewListResponse>() {
-            @Override
-            public void success(NotesViewListResponse.UserNotesViewListResponse userNotesViewListResponse, Response response) {
-                if (userNotesViewListResponse.getStatus().equalsIgnoreCase("Y")) {
-                    mProgressDialog.dismiss();
-                    arrayNotesList = userNotesViewListResponse.getData();
-                    aCategoryViewListAdapter = new NotesViewListAdapter(CategoryViewList.this, arrayNotesList);
-                    NotesList.setAdapter(aCategoryViewListAdapter);
-                    aCategoryViewListAdapter.notifyDataSetChanged();
-                }
-            }
 
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
 
     }
 
@@ -145,7 +157,7 @@ public class CategoryViewList extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.input_add) {
-            Intent addNote = new Intent(CategoryViewList.this, AddNote.class);
+            Intent addNote = new Intent(ViewFeedbackList.this, AddNote.class);
             startActivity(addNote);
             finish();
         }
