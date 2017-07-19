@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -83,12 +84,31 @@ public class AddNote extends AppCompatActivity implements View.OnClickListener {
 
 
     public void initWidgets() {
+        mToolbar = (Toolbar) findViewById(R.id.ATTB_toolbar);
+        mToolbar.setTitle(getString(R.string.AddNote));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        setSupportActionBar(mToolbar);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         inputCategory = (TextView) findViewById(R.id.input_categoryList);
         inputDate = (TextView) findViewById(R.id.input_Date);
         inputComments = (EditText) findViewById(R.id.input_comments);
         inputAdd = (Button) findViewById(R.id.input_Btn_Add);
 
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -115,6 +135,7 @@ public class AddNote extends AppCompatActivity implements View.OnClickListener {
                             if (userAddNotesResponse.getStatus().equalsIgnoreCase("Y")) {
                                 Intent surveyList = new Intent(AddNote.this, ViewFeedbackList.class);
                                 startActivity(surveyList);
+                                finish();
                             }
                         }
 

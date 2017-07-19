@@ -1,6 +1,5 @@
 package co.in.dreamguys.feedback.user.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -80,9 +79,9 @@ public class CategoryProgressListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent viewCategory = new Intent(mContext, ViewFeedbackList.class);
-                SessionHandler.getInstance().save(mContext, Constants.CATEGORYNAME, data.getAnswer());
+                SessionHandler.getInstance().save(mContext,Constants.CATEGORYANSWER,data.getAnswer());
                 mContext.startActivity(viewCategory);
-                ((Activity) mContext).finish();
+                /*((Activity) mContext).finish();*/
             }
         });
 

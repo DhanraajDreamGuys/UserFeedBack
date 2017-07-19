@@ -53,20 +53,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrayFilter = Constants.ArrayFilter;
 
         inputLayoutSwipeRefresh.setOnRefreshListener(this);
-        inputLayoutSwipeRefresh.post(new Runnable() {
-            @Override
-            public void run() {
-                inputLayoutSwipeRefresh.setRefreshing(true);
-                SurveyResults();
-            }
-        });
+
 
         if (arrayFilter.size() > 0) {
             aFilterListAdapter = new FilterListAdapter(MainActivity.this, arrayFilter);
             listCategories.setAdapter(aFilterListAdapter);
             aFilterListAdapter.notifyDataSetChanged();
-        } else {
+        } else if (arrayFilter.size() < 0) {
             SurveyResults();
+        } else {
+            inputLayoutSwipeRefresh.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (arrayFilter.size() > 0) {
+                        inputLayoutSwipeRefresh.setRefreshing(true);
+                        aFilterListAdapter = new FilterListAdapter(MainActivity.this, arrayFilter);
+                        listCategories.setAdapter(aFilterListAdapter);
+                        inputLayoutSwipeRefresh.setRefreshing(false);
+                        aFilterListAdapter.notifyDataSetChanged();
+                    } else {
+                        inputLayoutSwipeRefresh.setRefreshing(true);
+                        SurveyResults();
+                    }
+
+                }
+            });
         }
         inputFilter.setOnClickListener(this);
 
@@ -85,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         Log.i("TAG", "empty list");
                     }
-                    Log.i("TAG", arrayCategoryList.toString());
+
                 }
             }
 
@@ -115,8 +126,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.input_filter) {
             Intent filterActivity = new Intent(MainActivity.this, FilterList.class);
             startActivity(filterActivity);
-            Constants.ArrayFilter.clear();
+            /*Constants.ArrayFilter.clear();*/
         }
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     @Override

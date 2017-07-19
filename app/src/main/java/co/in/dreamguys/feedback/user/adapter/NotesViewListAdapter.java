@@ -1,9 +1,8 @@
 package co.in.dreamguys.feedback.user.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import co.in.dreamguys.feedback.user.ViewFeedbackList;
 import co.in.dreamguys.feedback.user.R;
-import co.in.dreamguys.feedback.user.helper.Constants;
 import co.in.dreamguys.feedback.user.network.NotesDeleteListAPI;
 import co.in.dreamguys.feedback.user.response.NotesDeleteListResponse;
 import co.in.dreamguys.feedback.user.response.NotesViewListResponse;
@@ -58,8 +55,9 @@ public class NotesViewListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder mHolder;
+        final String NotesId;
         if (convertView == null) {
             mHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.adapter_add_note, null);
@@ -73,32 +71,26 @@ public class NotesViewListAdapter extends BaseAdapter {
         final NotesViewListResponse.Datum data = (NotesViewListResponse.Datum) getItem(position);
         mHolder.inputNotesName.setText(data.getCategory_name());
         mHolder.inputNotesDesc.setText(data.getNotes());
-
         mHolder.inputDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogInterface.OnClickListener dialogClickListner = new DialogInterface.OnClickListener() {
-
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE: {
+                            case DialogInterface.BUTTON_POSITIVE:
                                 NotesDeleteListAPI.getInstance().Callresponse(data.getNotes_id(), new Callback<NotesDeleteListResponse.UserNotesDeleteListResponse>() {
                                     @Override
                                     public void success(NotesDeleteListResponse.UserNotesDeleteListResponse userNotesDeleteListResponse, Response response) {
-                                        if (userNotesDeleteListResponse.getStatus().equalsIgnoreCase("Y")) {
-                                            Intent intent = new Intent(mContext, ViewFeedbackList.class);
-                                            mContext.startActivity(intent);
-                                        }
+
                                     }
+
                                     @Override
                                     public void failure(RetrofitError error) {
 
                                     }
                                 });
-                                Constants.NotesId = data.getNotes_id();
-                            }
-                            break;
+                                break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 dialog.dismiss();
                                 break;
@@ -106,11 +98,47 @@ public class NotesViewListAdapter extends BaseAdapter {
                     }
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListner)
-                        .setNegativeButton("No", dialogClickListner).show();
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
+        /*mHolder.inputDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("Are you sure you want to Delete?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                NotesDeleteListAPI.getInstance().Callresponse(((NotesViewListResponse.Datum) getItem(position)).getNotes_id(), new Callback<NotesDeleteListResponse.UserNotesDeleteListResponse>() {
+                                    @Override
+                                    public void success(NotesDeleteListResponse.UserNotesDeleteListResponse userNotesDeleteListResponse, Response response) {
+                                        if (userNotesDeleteListResponse.getStatus().equalsIgnoreCase("Y")) {
+                                            ((Activity) mContext).finish();
+                                            *//*Intent intent = new Intent(mContext, ViewFeedbackList.class);
+                                            mContext.startActivity(intent);*//*
+                                            notifyDataSetChanged();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+
             }
 
-        });
+        });*/
 
         return convertView;
     }

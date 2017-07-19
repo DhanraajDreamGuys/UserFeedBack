@@ -85,7 +85,6 @@
         android:gravity="center|left"
         android:inputType="number"
         android:padding="@dimen/_5sdp"
-        android:textColor="@color/colorGray"
         android:textSize="@dimen/_12sdp" />
 
     <TextView

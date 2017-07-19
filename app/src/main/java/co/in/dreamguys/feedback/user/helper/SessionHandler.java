@@ -20,7 +20,6 @@ public class SessionHandler {
         mContext.getSharedPreferences(Constants.APP_NAME, Context.MODE_PRIVATE).edit().putString(key, value).commit();
     }
 
-
     public void remove(Context mContext, String key) {
         mContext.getSharedPreferences(Constants.APP_NAME, Context.MODE_PRIVATE).edit().remove(key).commit();
     }

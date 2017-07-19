@@ -28,7 +28,6 @@ public class NotesDeleteListAPI {
     public interface ReviewDetails {
         @FormUrlEncoded
         @POST("/deleteNotes")
-        public void mVendor(@Field("notesId") String NotesId,
-                            Callback<NotesDeleteListResponse.UserNotesDeleteListResponse> response);
+        public void mVendor(@Field("notesId") String NotesId,Callback<NotesDeleteListResponse.UserNotesDeleteListResponse> response);
     }
 }

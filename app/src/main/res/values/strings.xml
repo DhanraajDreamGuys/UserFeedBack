@@ -21,4 +21,6 @@
     <string name="err_password">Enter password</string>
     <string name="please_wait">Please wait</string>
     <string name="reset">Reset</string>
+    <string name="Filter">Filter</string>
+    <string name="AddNote">Add Note</string>
 </resources>

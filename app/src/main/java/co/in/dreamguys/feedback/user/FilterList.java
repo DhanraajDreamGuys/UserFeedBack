@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -65,7 +66,6 @@ public class FilterList extends AppCompatActivity implements View.OnClickListene
         initWidgets();
         setDateTimeField();
 
-
         GetSkinToneAPI.getInstance().Callresponse(SessionHandler.getInstance().get(FilterList.this, Constants.RESTAURANT_ID), new Callback<SkinToneResponse.UserSkinToneResponse>() {
             @Override
             public void success(SkinToneResponse.UserSkinToneResponse userSkinToneResponse, Response response) {
@@ -80,12 +80,20 @@ public class FilterList extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-
+        inputAge.setText(Constants.FILTERAGE);
+        inputDate.setText(Constants.FILTERDATE);
+        inputSkinTone.setText(Constants.FILTERSKINTONE);
+        inputRadioGroup.check(Constants.FILTERGENDER);
     }
 
 
     public void initWidgets() {
+        mToolbar = (Toolbar) findViewById(R.id.ATTB_toolbar);
+        mToolbar.setTitle(getString(R.string.Filter));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        setSupportActionBar(mToolbar);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
         inputSkinTone = (TextView) findViewById(R.id.input_skinTone);
         inputAge = (EditText) findViewById(R.id.input_Age);
         inputDate = (TextView) findViewById(R.id.input_date);
@@ -99,6 +107,7 @@ public class FilterList extends AppCompatActivity implements View.OnClickListene
                 RadioButton value = (RadioButton) group.findViewById(checkedId);
                 if (null != value && checkedId > -1) {
                     String user = (String) value.getText();
+                    Constants.FILTERGENDER = checkedId;
                     if (user.equalsIgnoreCase("male")) {
                         gender = "m";
                     } else {
@@ -135,6 +144,12 @@ public class FilterList extends AppCompatActivity implements View.OnClickListene
                     inputAge.getText().toString(), inputSkinTone.getText().toString(), new Callback<FilterResponse.UserFilterResponse>() {
                         @Override
                         public void success(FilterResponse.UserFilterResponse userFilterResponse, Response response) {
+                            Constants.FILTERAGE = inputAge.getText().toString();
+                            Constants.FILTERDATE = inputDate.getText().toString();
+                            Constants.FILTERSKINTONE = inputSkinTone.getText().toString();
+                            Log.i("TAG", Constants.FILTERAGE);
+                            Log.i("TAG", Constants.FILTERSKINTONE);
+                            Log.i("TAG", Constants.FILTERDATE);
                             if (userFilterResponse.getStatus().equalsIgnoreCase("Y")) {
                                 if (userFilterResponse.getData() == null) {
                                     Toast.makeText(FilterList.this, "No data", Toast.LENGTH_SHORT).show();
@@ -155,10 +170,22 @@ public class FilterList extends AppCompatActivity implements View.OnClickListene
                         }
                     });
         } else if (v.getId() == R.id.input_Btn_reset) {
+            SessionHandler.getInstance().remove(FilterList.this, Constants.FILTERSKINTONE);
+            SessionHandler.getInstance().remove(FilterList.this, Constants.FILTERAGE);
+            SessionHandler.getInstance().remove(FilterList.this, Constants.FILTERDATE);
+            Constants.FILTERGENDER = 0;
+
             inputRadioGroup.clearCheck();
             inputSkinTone.setText("");
             inputDate.setText("");
             inputAge.getText().clear();
+
+            Constants.ArrayFilter = null;
+
+        /*    Intent mainActitvity = new Intent(FilterList.this, MainActivity.class);
+            startActivity(mainActitvity);
+            finish();*/
+
         }
     }
 
@@ -174,6 +201,20 @@ public class FilterList extends AppCompatActivity implements View.OnClickListene
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public class SkinToneAdapter extends BaseAdapter {
         LayoutInflater inflater;

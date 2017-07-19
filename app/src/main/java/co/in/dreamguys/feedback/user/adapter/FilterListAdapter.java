@@ -1,6 +1,5 @@
 package co.in.dreamguys.feedback.user.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -76,7 +75,7 @@ public class FilterListAdapter extends BaseAdapter {
                 Intent viewCategory = new Intent(mContext, ViewFeedbackList.class);
                 SessionHandler.getInstance().save(mContext, Constants.CATEGORYNAME, data.getAnswer());
                 mContext.startActivity(viewCategory);
-                ((Activity) mContext).finish();
+               /* ((Activity) mContext).finish();*/
             }
         });
         return convertView;
